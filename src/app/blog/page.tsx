@@ -11,17 +11,19 @@ type BlogPost = {
   content: Document; // Contentful rich-text document type
 };
 
-export async function getStaticProps() {
-  const posts: BlogPost[] = await getAllBlogPost(); // Ensure `getAllBlogPost` returns this structure
-  return {
-    props: {
-      posts,
-    },
-    revalidate: 10, // Revalidate the page every 10 seconds
-  };
-}
+// export async function getStaticProps() {
+//   const posts: BlogPost[] = await getAllBlogPost(); // Ensure `getAllBlogPost` returns this structure
+//   return {
+//     props: {
+//       posts,
+//     },
+//     revalidate: 10, // Revalidate the page every 10 seconds
+//   };
+// }
 
-export default function BlogPage({ posts }: { posts: BlogPost[] }) {
+export default async function BlogPage() {
+  const posts = (await getAllBlogPost()) as unknown as BlogPost[];
+
   return (
     <>
       <section className="mx-8 pt-20">

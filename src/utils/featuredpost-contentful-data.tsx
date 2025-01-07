@@ -1,4 +1,5 @@
 import * as contentful from "contentful";
+import { Document } from "@contentful/rich-text-types";
 
 const client = contentful.createClient({
   space: "cyunbquyskzk",
@@ -19,9 +20,21 @@ export async function getAllEntries() {
 // get entries for blog post only
 export async function getAllBlogPost() {
   try {
-    const data = await client.getEntries({
+    const data = (await client.getEntries({
       content_type: "blogPost",
-    });
+    })) as unknown as {
+      items: {
+        fields: {
+          title: string;
+          slug: string;
+          content: Document;
+          thumbnailImage: { fields: { file: { url: string } } };
+          featuredImage: { fields: { file: { url: string } } };
+          category: string;
+        };
+      }[];
+    };
+
     return data.items.map((posts) => {
       let thumbnailUrl = posts?.fields?.thumbnailImage?.fields?.file.url;
       if (!thumbnailUrl) {
@@ -66,6 +79,8 @@ export async function searchPostsByTitle(keyword: string) {
       content_type: "blogPost",
       "fields.title[match]": keyword,
     });
+
+    return res.items;
   } catch (error) {
     console.error(error);
     return null;
