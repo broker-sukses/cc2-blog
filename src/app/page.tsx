@@ -3,13 +3,13 @@ import { getAllBlogPost } from "@/utils/contentful-data";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 
+import HeroSection from "@/components/hero-section";
+
 export default async function HomePage() {
   const posts = await getAllBlogPost();
   return (
     <>
-      <div className="border w-full  bg-[#090d1f] flex justify-center items-center pt-16">
-        <h1 className="font-sans text-[100px] text-white">THE BLOG</h1>
-      </div>
+      {/* <HeroSection /> */}
       <section className="border p-5 bg-[#090d1f] text-white">
         <h2 className="text-white pb-5 text-2xl">Featured Post</h2>
         <div className="bg-[#090d1f] flex flex-row ">
