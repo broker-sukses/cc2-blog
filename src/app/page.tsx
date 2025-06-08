@@ -9,7 +9,7 @@ export default async function HomePage() {
   const posts = await getAllBlogPost();
   return (
     <>
-      {/* <HeroSection /> */}
+      <HeroSection />
       <section className="border p-5 bg-[#090d1f] text-white">
         <h2 className="text-white pb-5 text-2xl">Featured Post</h2>
         <div className="bg-[#090d1f] flex flex-row ">
